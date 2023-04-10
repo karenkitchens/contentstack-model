@@ -41,3 +41,6 @@ app.get("/comments/:id", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("API Server is running...") );
+
+// Export the Express API
+module.exports = app;
