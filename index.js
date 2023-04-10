@@ -11,20 +11,24 @@ app.use(cors());
 const PORT = 4000
 
 app.listen(PORT, () => {
-  console.log(`API listening on PORT ${PORT} `)
+    console.log(`API listening on PORT ${PORT} `)
+})
+
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
 })
 
 app.post("/comments", async (req, res) => {
     const id = uuid();
     const content = req.body.content;
 
-    if(!content) {
+    if (!content) {
         res.sendStatus(400)
     }
 
     await fs.mkdir("data/comments", { recursive: true });
     await fs.writeFile(`data/comments/${id}.txt`, content);
-    
+
     res.sendStatus(201).json({
         id: id
     });
@@ -32,7 +36,7 @@ app.post("/comments", async (req, res) => {
 })
 
 app.get("/comments/:id", async (req, res) => {
-    
+
     const id = req.params.id;
     let content;
 
@@ -46,7 +50,7 @@ app.get("/comments/:id", async (req, res) => {
     });
 });
 
-app.listen(3000, () => console.log("API Server is running...") );
+app.listen(3000, () => console.log("API Server is running..."));
 
 // Export the Express API
 module.exports = app;
